@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Rennokki\Befriended\Traits\Follow;
+use Illuminate\Notifications\Notifiable;
+use Rennokki\Befriended\Contracts\Following;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Following
 {
-    use Notifiable;
+    use Notifiable, Follow;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password',
     ];
 
     /**
