@@ -49,4 +49,28 @@ class PostApiTest extends TestCase
             ->deleteJson(route('posts.destroy', $post->id))
             ->assertNoContent();
     }
+
+    /** @test */
+    public function it_can_be_liked()
+    {
+        $post = factory(Post::class)->create();
+
+        $this->actingAs($this->user, 'api')
+            ->postJson(route('posts.like', $post->id))
+            ->assertOk();
+
+        $this->assertTrue($this->user->likes($post));
+    }
+
+    /** @test */
+    public function it_can_be_unliked()
+    {
+        $post = factory(Post::class)->create();
+
+        $this->actingAs($this->user, 'api')
+            ->postJson(route('posts.unlike', $post->id))
+            ->assertOk();
+
+        $this->assertFalse($this->user->likes($post));
+    }
 }
