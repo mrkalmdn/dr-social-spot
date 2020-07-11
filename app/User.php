@@ -3,15 +3,17 @@
 namespace App;
 
 use Rennokki\Befriended\Traits\Follow;
+use Rennokki\Befriended\Traits\CanLike;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Rennokki\Befriended\Contracts\Liker;
 use Rennokki\Befriended\Contracts\Following;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements Following, JWTSubject
+class User extends Authenticatable implements Following, JWTSubject, Liker
 {
-    use Notifiable, Follow;
+    use Notifiable, Follow, CanLike;
 
     /**
      * The attributes that are mass assignable.

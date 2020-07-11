@@ -24,5 +24,7 @@ Route::namespace('Api')->group(function () {
         Route::get('me', 'AuthController@me')->name('me');
 
         Route::apiResource('posts', 'PostsController');
+        Route::post('posts/{post}/like', 'LikePost')->name('posts.like');
+        Route::post('posts/{post}/unlike', 'UnlikePost')->name('posts.unlike');
     });
 });
