@@ -2,20 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthenticationApiTest extends TestCase
 {
     /** @test */
     public function it_can_authenticate()
     {
-        $user = factory(User::class)->create();
-
         $payload = [
-            'username' => $user->username,
+            'username' => $this->user->username,
             'password' => 'password'
         ];
 
@@ -31,9 +26,7 @@ class AuthenticationApiTest extends TestCase
     /** @test */
     public function it_can_show_ther_authenticated_user_information()
     {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user, 'api')
+        $this->actingAs($this->user, 'api')
             ->getJson(route('me'))
             ->assertOk()
             ->assertJsonStructure([

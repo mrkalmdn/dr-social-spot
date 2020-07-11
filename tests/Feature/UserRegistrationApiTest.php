@@ -10,8 +10,6 @@ class UserRegistrationApiTest extends TestCase
     /** @test */
     public function it_can_register_a_user()
     {
-        factory(User::class, 5)->create();
-
         $user = [
             'name' => $this->faker->name,
             'username' => $this->faker->unique()->userName,

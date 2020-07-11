@@ -22,5 +22,7 @@ Route::namespace('Api')->group(function () {
         Route::post('logout', 'AuthController@logout')->name('logout');
         Route::post('refresh', 'AuthController@refresh')->name('refresh');
         Route::get('me', 'AuthController@me')->name('me');
+
+        Route::apiResource('posts', 'PostsController');
     });
 });
