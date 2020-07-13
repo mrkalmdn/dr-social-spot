@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Commentator::routes();
+        Commentator::routes(['middleware' => 'api', 'prefix' => 'api']);
     }
 }

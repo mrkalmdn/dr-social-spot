@@ -61,4 +61,9 @@ class User extends Authenticatable implements Following, JWTSubject, Liker
     {
         return [];
     }
+
+    public function setPasswordAttribute($password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

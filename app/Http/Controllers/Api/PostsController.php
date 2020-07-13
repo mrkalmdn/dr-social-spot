@@ -16,7 +16,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return response()->json(Post::all());
+        $posts = Post::when(request()->has('user_id'), function ($query) {
+                return $query->where('user_id', request()->user_id);
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json($posts);
     }
 
     /**
@@ -27,7 +33,13 @@ class PostsController extends Controller
      */
     public function store(PostFormRequest $request)
     {
+        $request->merge([
+            'user_id' => auth()->user()->id
+        ]);
+
         $post = Post::create($request->all());
+
+        $post->load(['user', 'comments', 'comments.author', 'comments.replies', 'comments.replies.author']);
 
         return response()->json($post, 201);
     }
@@ -52,6 +64,10 @@ class PostsController extends Controller
      */
     public function update(PostFormRequest $request, Post $post)
     {
+        $request->merge([
+            'user_id' => auth()->user()->id
+        ]);
+
         $post->update($request->all());
 
         return response()->json($post, 202);

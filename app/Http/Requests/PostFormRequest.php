@@ -25,7 +25,7 @@ class PostFormRequest extends FormRequest
     {
         return [
             'body' => 'required',
-            'user_id' => ['required', 'exists:users,id']
+            'user_id' => ['exists:users,id']
         ];
     }
 }
